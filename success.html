@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Confirmed! | TrackFast Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for the success page */
+        #success-section {
+            padding: 80px 0;
+            min-height: 80vh;
+            text-align: center;
+            background: linear-gradient(180deg, var(--color-background) 0%, #e0f8e0 100%);
+        }
+        .success-card {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: var(--border-radius-base);
+            box-shadow: 0 8px 20px rgba(40, 167, 69, 0.2);
+            max-width: 600px;
+            margin: 0 auto;
+            border-top: 5px solid var(--color-success);
+        }
+        .success-card h1 {
+            color: var(--color-success);
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .success-card p {
+            font-size: 1.1em;
+            color: var(--color-text-light);
+            margin-bottom: 25px;
+        }
+        .order-details {
+            text-align: left;
+            margin: 30px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .order-details strong {
+            color: var(--color-text);
+            font-weight: 700;
+        }
+        .item-list {
+            list-style: none;
+            padding: 0;
+            margin-top: 15px;
+            border-top: 1px dashed #ccc;
+            padding-top: 15px;
+        }
+        .item-list li {
+            padding: 5px 0;
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
+</head>
+<body id="success-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="success-section" class="container">
+            <div class="success-card">
+                <img src="https://via.placeholder.com/60x60?text=✔️" alt="Checkmark" style="margin-bottom: 15px;">
+                <h1>Order Successfully Placed!</h1>
+                <p>Your order for smart tracking gear has been confirmed. A critical **purchase** event has fired.</p>
+                
+                <div class="order-details">
+                    <p>Order ID: <strong>TF-19912025</strong></p>
+                    <p>Transaction Time: <strong>Nov 28, 2025</strong></p>
+                    <p>Total Paid: <strong style="font-size: 1.2em;">$267.48</strong> (Including $12.50 Tax, $5.00 Shipping)</p>
+                    <p>Coupon Used: <strong>SAVE10</strong></p>
+                    
+                    <ul class="item-list">
+                        <li><span>Smart Converter Watch</span><span>$199.99</span></li>
+                        <li><span>Attribution Powerbank</span><span>$49.99</span></li>
+                    </ul>
+                </div>
+                
+                <button class="btn btn-primary" id="post-purchase-survey-btn">Take Our Post-Purchase Survey</button>
+                
+                <a href="#" id="app-download-link" style="display: block; margin-top: 15px; color: var(--color-secondary);">Download the TrackFast Mobile App</a>
+
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Thank you for your order!
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Additional DOM-specific event listeners for the Success page
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // H. Custom Business Event: Post-Purchase Survey
+            document.getElementById('post-purchase-survey-btn').addEventListener('click', () => {
+                triggerEvent('post_purchase_survey_start', { user_id: 'TF-2025-U01', order_id: 'TF-19912025' },
+                    'Measures customer satisfaction immediately after purchase, capturing feedback before product delivery.',
+                    'Missed opportunity to gather real-time feedback that could reveal checkout friction or delivery expectations.'
+                );
+                alert("Survey started! (Check tracking events)");
+            });
+            
+            // H. Custom Business Event: App Download
+            document.getElementById('app-download-link').addEventListener('click', () => {
+                triggerEvent('app_download_link_click', { platform: 'ios_android', location: 'thank_you_page' },
+                    'Tracks cross-platform adoption, encouraging users to download the mobile app for increased retention.',
+                    'Cannot track the effectiveness of mobile app promotion placements, losing out on valuable mobile users.'
+                );
+            });
+            
+            // H. Custom Business Event: Review Request View
+            // This is a view event, which can be simulated on page load if the element exists.
+            const reviewRequest = document.getElementById('review-request-link'); 
+            if (reviewRequest) {
+                 triggerEvent('review_request_view', { order_id: 'TF-19912025' },
+                    'Measures visibility of the request to leave a review.',
+                    'Cannot calculate the conversion rate of the review request, impacting social proof generation.'
+                );
+            }
+        });
+    </script>
+
+</body>
+</html>
