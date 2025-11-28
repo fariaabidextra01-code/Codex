@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login to TrackFast | Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for centered auth forms */
+        #auth-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 0;
+            background-color: var(--color-background);
+        }
+        .auth-card {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-light);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .auth-card h1 {
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+        .auth-card a {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .error-message {
+            color: var(--color-risk);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+        }
+        .success-message {
+            color: var(--color-success);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body id="login-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="auth-section">
+            <div class="auth-card">
+                <h1>Login to Your Account</h1>
+                
+                <div id="login-error" class="error-message">
+                    Invalid credentials. Please try again.
+                </div>
+                <div id="login-success" class="success-message">
+                    Login Successful! Redirecting...
+                </div>
+                
+                <form id="login-form" class="demo-form">
+                    <input type="email" id="login-email" placeholder="Email (Try 'success@trackfast.com')" required>
+                    <input type="password" id="login-password" placeholder="Password (Try 'password')" required>
+                    
+                    <button type="submit" class="btn btn-primary" id="login-submit-btn">Login</button>
+                </form>
+
+                <a href="#" id="forgot-password-link">Forgot Password?</a>
+                
+                <a href="signup.html">Don't have an account? Sign Up</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Track every user step.
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // DOM-specific event listeners for the Login page
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // E. User Authentication - login_start
+            triggerEvent('login_start', { method: 'email_password' },
+                'Measures the number of users initiating the login process, essential for calculating login conversion rates.',
+                'Cannot determine the efficiency of the login funnel or measure friction at the starting gate.'
+            );
+
+            const loginForm = document.getElementById('login-form');
+            const errorMsg = document.getElementById('login-error');
+            const successMsg = document.getElementById('login-success');
+            
+            // E. User Authentication - login_success / login_error
+            loginForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'none';
+                
+                const email = document.getElementById('login-email').value.trim();
+                const password = document.getElementById('login-password').value.trim();
+                
+                // Simulation Logic: Success if email is 'success@trackfast.com' and password is 'password'
+                if (email === 'success@trackfast.com' && password === 'password') {
+                    
+                    triggerEvent('login_success', { method: 'email_password', user_status: 'returning' },
+                        'The critical event to link known customer activity to their anonymous browsing history (user_id).',
+                        'User behavior before login cannot be stitched to the user profile, leading to incomplete customer journey analysis and poor personalization.'
+                    );
+                    
+                    successMsg.style.display = 'block';
+                    // Simulate redirect to the user profile page
+                    setTimeout(() => {
+                        window.location.href = 'profile.html'; 
+                    }, 1000);
+
+                } else {
+                    
+                    triggerEvent('login_error', { method: 'email_password', error_reason: 'invalid_credentials' },
+                        'Identifies credential failures, allowing for quick response to potential bot attacks or UX confusion (e.g., Caps Lock).',
+                        'Repeated failed logins without tracking lead to user frustration and potential account lockouts, causing high-value users to churn.'
+                    );
+                    
+                    errorMsg.style.display = 'block';
+                }
+            });
+
+            // E. User Authentication - password_reset_request
+            document.getElementById('forgot-password-link').addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                triggerEvent('password_reset_request', { method: 'email' },
+                    'Measures the volume of users who cannot access their accounts, signaling potential UX issues or common password errors.',
+                    'High volumes of requests are not monitored, leading to email server strain and poor customer retention.'
+                );
+                alert("Password reset link simulated! Check tracking events.");
+            });
+
+        });
+    </script>
+
+</body>
+</html>
