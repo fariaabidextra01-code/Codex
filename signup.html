@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up for TrackFast | Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for centered auth forms (reused from login.html) */
+        #auth-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 80vh;
+            padding: 40px 0;
+            background-color: var(--color-background);
+        }
+        .auth-card {
+            background-color: var(--color-white);
+            padding: 40px;
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-light);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+        .auth-card h1 {
+            color: var(--color-primary);
+            margin-bottom: 25px;
+        }
+        .auth-card a {
+            display: block;
+            margin-top: 15px;
+            font-size: 0.9em;
+        }
+        .error-message {
+            color: var(--color-risk);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+        }
+        .success-message {
+            color: var(--color-success);
+            margin-bottom: 15px;
+            font-weight: 600;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body id="signup-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="auth-section">
+            <div class="auth-card">
+                <h1>Create Your TrackFast Account</h1>
+                
+                <div id="signup-error" class="error-message">
+                    Sign up failed. User already exists or fields are invalid.
+                </div>
+                <div id="signup-success" class="success-message">
+                    Account Created Successfully! Redirecting...
+                </div>
+                
+                <form id="signup-form" class="demo-form">
+                    <input type="text" id="signup-name" placeholder="Full Name" required>
+                    <input type="email" id="signup-email" placeholder="Email (Try 'newuser@trackfast.com')" required>
+                    <input type="password" id="signup-password" placeholder="Password (min 6 characters)" required minlength="6">
+                    
+                    <button type="submit" class="btn btn-primary" id="signup-submit-btn">Create Account</button>
+                </form>
+
+                <a href="login.html">Already have an account? Login here.</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Track every user step.
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // DOM-specific event listeners for the Sign Up page
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // E. User Authentication - signup_start
+            triggerEvent('signup_start', { method: 'email_password' },
+                'Measures the number of potential new customers initiating the registration process, essential for calculating CPL (Cost Per Lead).',
+                'Cannot determine the efficiency of the registration funnel or measure friction at the starting gate for new users.'
+            );
+
+            const signupForm = document.getElementById('signup-form');
+            const errorMsg = document.getElementById('signup-error');
+            const successMsg = document.getElementById('signup-success');
+            
+            // E. User Authentication - signup_success / signup_error
+            signupForm.addEventListener('submit', (e) => {
+                e.preventDefault();
+                errorMsg.style.display = 'none';
+                successMsg.style.display = 'none';
+                
+                const email = document.getElementById('signup-email').value.trim();
+                const password = document.getElementById('signup-password').value.trim();
+                
+                // Simulation Logic: Success if password is 6+ chars and email is not 'fail@trackfast.com'
+                if (password.length >= 6 && email !== 'fail@trackfast.com') {
+                    
+                    triggerEvent('signup_success', { method: 'email_password', user_acquisition_source: 'organic' },
+                        'The critical event marking a successful customer acquisition, used for LTV (Lifetime Value) and ROAS calculations.',
+                        'Customer acquisition sources are lost, resulting in wasted ad spend and poor optimization of marketing campaigns.'
+                    );
+                    
+                    successMsg.style.display = 'block';
+                    // Simulate redirect to the user profile page
+                    setTimeout(() => {
+                        window.location.href = 'profile.html'; 
+                    }, 1000);
+
+                } else {
+                    
+                    let errorReason = 'invalid_credentials';
+                    if (email === 'fail@trackfast.com') {
+                        errorReason = 'user_exists';
+                    } else if (password.length < 6) {
+                        errorReason = 'password_too_short';
+                    }
+                    
+                    triggerEvent('signup_error', { method: 'email_password', error_reason: errorReason },
+                        'Identifies credential failures and form friction points (e.g., password requirements, confusing validation).',
+                        'Users encountering frustrating form errors will churn, and the business won\'t know why the sign-up rate is low.'
+                    );
+                    
+                    errorMsg.style.display = 'block';
+                }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
