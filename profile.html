@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile | TrackFast Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for the profile section */
+        #profile-section {
+            padding: 60px 0;
+            background-color: var(--color-background);
+        }
+        .profile-card {
+            background-color: var(--color-white);
+            padding: 30px;
+            border-radius: var(--border-radius-base);
+            box-shadow: var(--shadow-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .profile-card h1 {
+            color: var(--color-secondary);
+            border-bottom: 2px solid var(--color-primary);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .profile-card label {
+            font-weight: 600;
+            display: block;
+            margin-top: 15px;
+        }
+        .loyalty-info {
+            background-color: #f0f8ff;
+            padding: 15px;
+            border-left: 5px solid var(--color-primary);
+            border-radius: 5px;
+            margin-top: 25px;
+        }
+    </style>
+</head>
+<body id="profile-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Logout</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="profile-section">
+            <div class="container profile-card">
+                <h1>Welcome, TrackFast User!</h1>
+                
+                <form id="profile-update-form" class="demo-form">
+                    <h2>Update Information</h2>
+                    <label for="profile-name">Full Name</label>
+                    <input type="text" id="profile-name" value="Demo TrackUser" required>
+                    
+                    <label for="profile-email">Email Address</label>
+                    <input type="email" id="profile-email" value="success@trackfast.com" required disabled>
+                    
+                    <label for="profile-phone">Phone Number</label>
+                    <input type="text" id="profile-phone" placeholder="e.g., 555-123-4567">
+                    
+                    <label for="profile-preferences">Communication Preferences</label>
+                    <select id="profile-preferences">
+                        <option value="all" selected>All Marketing Emails</option>
+                        <option value="none">No Marketing</option>
+                    </select>
+                    
+                    <button type="submit" class="btn btn-primary" style="margin-top: 20px;">Save Profile Changes</button>
+                    <button type="button" class="btn btn-secondary" id="password-reset-success-btn" style="margin-top: 10px;">Simulate Password Reset Success</button>
+                </form>
+
+                <div class="loyalty-info">
+                    <h3 style="color: var(--color-primary);">Loyalty Rewards Status</h3>
+                    <p>Current Points: <strong id="loyalty-points-view-count">1500</strong></p>
+                    
+                    <button class="btn btn-primary" id="loyalty-redeem-btn" style="margin-top: 15px;">Redeem 500 Points for $5 off</button>
+                </div>
+                
+                <div id="image-load-error-sim" style="color: var(--color-risk); margin-top: 20px; border: 1px dashed var(--color-risk); padding: 10px; cursor: pointer;">
+                    [Click to Simulate **Image Load Error**]
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Secure your data journey.
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // DOM-specific event listeners for the Profile page
+        document.addEventListener('DOMContentLoaded', () => {
+            
+            // H. Additional Custom Business Events: loyalty_points_view
+            triggerEvent('loyalty_points_view', { current_points: 1500, tier: 'Silver' },
+                'Measures engagement with the loyalty program, vital for calculating the value of the rewards system.',
+                'The ROI of the loyalty program is unknown, leading to sub-optimal budget allocation.'
+            );
+            
+            // E. User Authentication - profile_update
+            document.getElementById('profile-update-form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                
+                // Get updated fields for payload
+                const newName = document.getElementById('profile-name').value;
+                const newPhone = document.getElementById('profile-phone').value;
+                const newPrefs = document.getElementById('profile-preferences').value;
+                
+                triggerEvent('profile_update', { update_fields: ['name', 'phone', 'preferences'], communication_opt_in: (newPrefs === 'all') },
+                    'Tracks changes in user data and communication preferences, essential for compliance and CRM targeting.',
+                    'Segmentation lists based on user data become outdated, resulting in irrelevant marketing and poor customer experience.'
+                );
+                
+                alert("Profile Updated! Check tracking events.");
+            });
+            
+            // E. User Authentication - password_reset_success
+            document.getElementById('password-reset-success-btn').addEventListener('click', () => {
+                triggerEvent('password_reset_success', { method: 'email_link' },
+                    'Confirms a successful password change, closing the loop on the password reset funnel.',
+                    'The password reset flow is untraceable, making it impossible to identify high drop-off points (e.g., users who receive the email but never click the link).'
+                );
+            });
+            
+            // H. Additional Custom Business Events: loyalty_points_redeem
+            document.getElementById('loyalty-redeem-btn').addEventListener('click', () => {
+                const currentPointsElement = document.getElementById('loyalty-points-view-count');
+                let currentPoints = parseInt(currentPointsElement.textContent);
+                
+                if (currentPoints >= 500) {
+                    currentPoints -= 500;
+                    currentPointsElement.textContent = currentPoints;
+                    
+                    triggerEvent('loyalty_points_redeem', { points_redeemed: 500, discount_value: 5.00, remaining_points: currentPoints },
+                        'Measures the direct action of a customer utilizing their rewards, a strong indicator of LTV engagement.',
+                        'The usage rate of loyalty points is unknown, making it impossible to assess the feature\'s cost-effectiveness or encourage further redemption.'
+                    );
+                } else {
+                    // G. UX Behavior: error_message_view (for business logic errors)
+                     triggerEvent('error_message_view', { error_type: 'loyalty_insufficient_points', message: 'Not enough points to redeem.' },
+                        'Tracks when a user encounters an in-app business logic error, signaling frustration.',
+                        'Silent failures lead to user churn when features (like loyalty) fail to work as expected.'
+                    );
+                    alert("Not enough points! Need 500.");
+                }
+            });
+            
+            // G. UX Behavior: image_load_error (Simulated)
+            document.getElementById('image-load-error-sim').addEventListener('click', () => {
+                triggerEvent('image_load_error', { image_source: '/broken-asset.jpg', page_location: 'profile.html' },
+                    'Critical for debugging broken images, which severely degrades user experience and trust.',
+                    'Broken images/assets on the site remain undiscovered, creating an unprofessional look and impacting conversion rates.'
+                );
+            });
+
+        });
+    </script>
+
+</body>
+</html>
