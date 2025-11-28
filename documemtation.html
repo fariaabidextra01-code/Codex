@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tracking Guide & Documentation | TrackFast Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="documentation-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="documentation-content" class="container">
+            <h1 class="page-title">TrackFast Conversion Tracking Documentation</h1>
+            <p>This page documents every **Simulated GA4 and Meta event** fired across the demo site. Each event you trigger will appear in the top-right popup window.</p>
+
+            <div class="doc-section" style="background-color: #e6f7ff; border-color: #91d5ff;">
+                <h3>✨ The Live Tracking Popup System</h3>
+                <p>The popup in the top-right corner is a custom utility that captures every event triggered by the JavaScript on this site. It visually represents the data layer payload sent to the marketing platforms (like GA4/Meta) in real-time.</p>
+                <p>Each card contains:</p>
+                <ul>
+                    <li><strong>Event Name:</strong> The GA4 or Custom name (e.g., `view_item`, `add_to_cart`).</li>
+                    <li><strong>Tracking Insight:</strong> Why tracking this event is a **Success** (Green).</li>
+                    <li><strong>Risk of Loss:</strong> The potential business **Risk** if this event is *not* tracked (Red).</li>
+                    <li><strong>Payload:</strong> The full JSON object sent, including parameters like `value`, `currency`, and `items`.</li>
+                </ul>
+                <p><strong>Goal:</strong> To make the invisible data layer visible and explain its business value.</p>
+            </div>
+
+            <div class="doc-section">
+                <h3>B. Core Ecommerce Funnel Events</h3>
+                <p>These are the critical events for calculating conversion rates, Average Order Value (AOV), and overall funnel performance.</p>
+
+                <div class="event-doc-card">
+                    <h4>1. purchase (Success.html)</h4>
+                    <div class="doc-insight">CRITICAL: The final conversion event, used for ROAS calculation.</div>
+                    <pre>{ event: "purchase", transaction_id: "...", value: 267.48, tax: 12.50, shipping: 5.00, items: [...] }</pre>
+                </div>
+                
+                <div class="event-doc-card">
+                    <h4>2. begin_checkout (Cart/Product Pages)</h4>
+                    <div class="doc-insight">Measures commitment; the most common abandonment point.</div>
+                    <pre>{ event: "begin_checkout", currency: "USD", value: 249.98, items: [...] }</pre>
+                </div>
+
+                <div class="event-doc-card">
+                    <h4>3. add_to_cart / remove_from_cart (Product/Cart Pages)</h4>
+                    <div class="doc-insight">Quantifies product interest and identifies cart abandonment reasons.</div>
+                    <pre>{ event: "add_to_cart", items: [{ item_id: "TF001", quantity: 1 }] }</pre>
+                </div>
+
+                <div class="event-doc-card">
+                    <h4>4. view_item / view_item_list (Product/Index Pages)</h4>
+                    <div class="doc-insight">Measures product popularity and click-through rates (CTR) from lists.</div>
+                    <pre>{ event: "view_item", item_id: "TF001", item_name: "Smart Watch" }</pre>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h3>C. Detailed Checkout Step Events</h3>
+                <p>These events break down the friction points within the checkout process (Checkout.html).</p>
+
+                <div class="event-doc-card">
+                    <h4>1. add_shipping_info / add_billing_info</h4>
+                    <div class="doc-insight">Measures transition between data entry steps, allowing for form optimization.</div>
+                    <pre>{ event: "add_shipping_info", shipping_country: "US" }</pre>
+                </div>
+                
+                <div class="event-doc-card">
+                    <h4>2. select_delivery_option</h4>
+                    <div class="doc-insight">Critical for understanding shipping cost/speed sensitivity.</div>
+                    <pre>{ event: "select_delivery_option", shipping_method: "standard", shipping_cost: 5.00 }</pre>
+                </div>
+
+                <div class="event-doc-card">
+                    <h4>3. add_payment_info</h4>
+                    <div class="doc-insight">The final commitment before transaction; identifies payment gateway preference.</div>
+                    <pre>{ event: "add_payment_info", payment_type: "credit_card" }</pre>
+                </div>
+                
+                <div class="event-doc-card">
+                    <h4>4. apply_coupon / coupon_error</h4>
+                    <div class="doc-insight">Tracks campaign effectiveness and user frustration with invalid codes.</div>
+                    <pre>{ event: "apply_coupon", coupon: "SAVE10", discount_value: 10.00 }</pre>
+                    <div class="doc-risk">If not tracked: Profitability of marketing campaigns is unknown.</div>
+                </div>
+            </div>
+            
+            <div class="doc-section">
+                <h3>E. User Authentication Events (GA4 & Meta Identity)</h3>
+                <p>These events link anonymous behavior to a known user, crucial for LTV and personalization (Login/Signup/Profile Pages).</p>
+
+                <div class="event-doc-card">
+                    <h4>1. login_success / signup_success</h4>
+                    <div class="doc-insight">CRITICAL: Stitches customer journey data before and after account creation/login.</div>
+                    <pre>{ event: "login_success", method: "email_password", user_status: "returning" }</pre>
+                    <div class="doc-risk">If not tracked: Customer Journey is fragmented, and ROAS is impossible to calculate accurately.</div>
+                </div>
+
+                <div class="event-doc-card">
+                    <h4>2. login_error / signup_error</h4>
+                    <div class="doc-insight">Identifies form friction, broken validation, and potential brute force/bot activity.</div>
+                    <pre>{ event: "signup_error", error_reason: "user_exists" }</pre>
+                </div>
+                
+                <div class="event-doc-card">
+                    <h4>3. profile_update</h4>
+                    <div class="doc-insight">Tracks changes in user data and communication opt-ins for CRM segmentation.</div>
+                    <pre>{ event: "profile_update", update_fields: ["phone", "preferences"] }</pre>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h3>G. UX Behavior & Error Events (Quality Control)</h3>
+                <p>These are custom events designed to capture user frustration and site quality issues.</p>
+
+                <div class="event-doc-card">
+                    <h4>1. dead_click / rage_click (Index Page)</h4>
+                    <div class="doc-insight">Pinpoints unresponsive elements or confusing UI, crucial for bug fixing.</div>
+                    <pre>{ event: "dead_click", element_text: "Simulated Bug" }</pre>
+                    <div class="doc-risk">If not tracked: Silent user frustration leads to unidentified churn and high bounce rates.</div>
+                </div>
+
+                <div class="event-doc-card">
+                    <h4>2. form_abandonment / checkout_abandonment_trigger (Checkout Page)</h4>
+                    <div class="doc-insight">Triggers retargeting/recovery campaigns (e.g., SMS, email) on high-value drops.</div>
+                    <pre>{ event: "checkout_abandonment_trigger", value: 267.48, step: "payment" }</pre>
+                </div>
+                
+                <div class="event-doc-card">
+                    <h4>3. payment_failure (Checkout Page)</h4>
+                    <div class="doc-insight">Essential for monitoring payment gateway stability and distinguishing bank declines from user abandonment.</div>
+                    <pre>{ event: "payment_failure", error_code: "DECLINED_CVV" }</pre>
+                </div>
+            </div>
+
+            <div class="doc-section">
+                <h3>H. Custom Business Events (LTV & Loyalty)</h3>
+                <p>High-value events specific to TrackFast's business model (Profile/Success Pages).</p>
+
+                <div class="event-doc-card">
+                    <h4>1. loyalty_points_redeem / loyalty_points_view</h4>
+                    <div class="doc-insight">Measures engagement and ROI of the customer loyalty program.</div>
+                    <pre>{ event: "loyalty_points_redeem", points_redeemed: 500, discount_value: 5.00 }</pre>
+                </div>
+                
+                <div class="event-doc-card">
+                    <h4>2. store_locator_click (Index Page)</h4>
+                    <div class="doc-insight">Connects online activity (digital ad spend) to offline action (physical store visits).</div>
+                    <pre>{ event: "store_locator_click", location_action: "get_directions" }</pre>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Documentation for the perfect data layer.
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // No specific events are triggered on the Documentation page itself, 
+        // as its main function is to explain the events on other pages.
+        document.addEventListener('DOMContentLoaded', () => {
+            // Firing a simple view event for the page load itself
+            triggerEvent('page_view', { page_title: 'Tracking_Guide_Documentation', category: 'support' },
+                'Standard GA4/Meta view event, categorized for funnel analysis.',
+                'The overall success of the site (pageviews) remains unknown.'
+            );
+        });
+    </script>
+
+</body>
+</html>
