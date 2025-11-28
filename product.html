@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Converter Watch | TrackFast Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="product-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                    <li>
+                        <select id="currency-selector" class="product-size-selector" aria-label="Currency Selector">
+                            <option value="USD" selected>USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="product-detail" class="container">
+            <div class="product-layout">
+                <div class="product-gallery">
+                    <img src="https://via.placeholder.com/600x400?text=Product+Image" alt="Smart Converter Watch Main Image" id="main-product-image">
+                    
+                    <div class="thumbnail-gallery" style="display: flex; gap: 10px; margin-top: 10px;">
+                        <img src="https://via.placeholder.com/100x70?text=Thumb1" alt="Thumbnail 1" style="width: 80px; cursor: pointer;">
+                        <img src="https://via.placeholder.com/100x70?text=Thumb2" alt="Thumbnail 2" style="width: 80px; cursor: pointer;">
+                        <div class="promotion-banner" style="flex-grow: 1; background-color: var(--color-insight); color: var(--color-text); padding: 5px; border-radius: 5px; text-align: center;">
+                            **Discount Banner**
+                            <button class="btn btn-secondary btn-small" id="select-promotion-btn" style="padding: 3px 8px; font-size: 0.8em; margin-left: 5px;">View Deal</button>
+                        </div>
+                    </div>
+
+                    <div class="video-container">
+                        <h3>Product Demo Video</h3>
+                        <video id="product-video" class="product-video" controls poster="https://via.placeholder.com/600x400?text=Video+Placeholder">
+                            <source src="dummy_video.mp4" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                    </div>
+                </div>
+
+                <div class="product-info">
+                    <span style="color: var(--color-risk); font-weight: 600;">[Low Stock Warning View]</span>
+                    
+                    <h1>Smart Converter Watch</h1>
+                    <p class="price">$199.99</p>
+                    
+                    <p style="margin-bottom: 20px;">The Smart Converter Watch is engineered to provide precise, real-time feedback on your conversion funnels right on your wrist. Never miss a critical drop-off point again.</p>
+
+                    <div class="product-variants">
+                        <label for="color-selector">Color:</label>
+                        <select id="color-selector" class="product-color-selector" aria-label="Color Selector">
+                            <option value="Black" selected>Black</option>
+                            <option value="Silver">Silver</option>
+                            <option value="RoseGold">Rose Gold</option>
+                        </select>
+                    </div>
+
+                    <div class="product-variants">
+                        <label for="size-selector">Size:</label>
+                        <select id="size-selector" class="product-size-selector" aria-label="Size Selector">
+                            <option value="M" selected>Medium</option>
+                            <option value="L">Large</option>
+                            <option value="S">Small</option>
+                            </select>
+                    </div>
+
+                    <div class="product-actions">
+                        <button class="btn btn-primary add-to-cart-btn" data-item-id="TF001">Add to Cart</button>
+                        <a href="checkout.html" class="btn btn-secondary" id="buy-now-btn">Buy Now</a>
+                        
+                        <button class="btn btn-secondary add-to-wishlist-btn" style="margin-top: 15px;">Add to Wishlist</button>
+                    </div>
+
+                    <div style="margin-top: 30px;">
+                        <button class="btn btn-secondary" id="shipping-info-btn">Check Shipping Costs</button>
+                        <button class="btn btn-secondary" id="warranty-info-btn" style="margin-left: 10px;">View Warranty</button>
+                    </div>
+
+                    <div style="margin-top: 30px; border-top: 1px solid #eee; padding-top: 20px;">
+                        <h3>Share & Review</h3>
+                        <button class="btn btn-secondary" id="share-product-btn">Share Product</button>
+                        <button class="btn btn-secondary" id="copy-link-btn" style="margin-left: 10px;">Copy Link</button>
+                        
+                        <h4 style="margin-top: 20px;">Ask a Question</h4>
+                        <form class="demo-form" id="product_question_form" style="margin-top: 10px;">
+                            <input type="text" placeholder="Your Question" required>
+                            <button type="submit" class="btn btn-primary">Submit Question</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <section class="container" style="background-color: #f1f1f1; border-radius: var(--border-radius-base); margin-top: 40px;">
+            <h2>Customer Reviews</h2>
+            <div class="review-box">
+                <p>"The tracking events are instantly visible, making this the best demo site!" - A. User</p>
+                </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div><h4>Navigation</h4><ul><li><a href="product.html" class="footer-link">All Products</a></li><li><a href="documentation.html" class="footer-link">Tracking Guide</a></li></ul></div>
+            <div><h4>Contact Us</h4><p>support@trackfast.com</p></div>
+            <div><h4>Connect</h4><a href="#" class="social-icon" data-platform="facebook" style="margin-right: 10px;">[FB]</a></div>
+        </div>
+        <div class="container copyright">&copy; 2025 TrackFast. Smart Conversion Tracking Demo.</div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Additional DOM-specific event listeners for the Product page
+        document.addEventListener('DOMContentLoaded', () => {
+            const productId = 'TF001'; // Define the product ID for this page
+
+            // B. Product Interaction Events
+
+            // Product Image Zoom
+            document.getElementById('main-product-image').addEventListener('click', () => {
+                triggerEvent('product_image_zoom', { item_id: productId },
+                    'Measures deep visual engagement and intent to examine product details closely.',
+                    'Users examining product details closely are missed, masking friction points with product imagery.'
+                );
+            });
+            
+            // View Promotion
+            const promoBanner = document.querySelector('.promotion-banner');
+            if (promoBanner) {
+                // Event triggered on page load (view)
+                triggerEvent('view_promotion', { promotion_id: 'SUMMER25', location: 'product_thumbnail_strip' },
+                    'Measures exposure to promotional offers.',
+                    'Cannot calculate the lift in conversion rate caused by showing the promotion.'
+                );
+            }
+            // Select Promotion
+            document.getElementById('select-promotion-btn')?.addEventListener('click', () => {
+                triggerEvent('select_promotion', { promotion_id: 'SUMMER25' },
+                    'Measures interaction with the promotional offer/call-to-action.',
+                    'Missed opportunity to segment users who are price-sensitive and interested in deals.'
+                );
+            });
+            
+            // Buy Now (Simulated Begin Checkout)
+            document.getElementById('buy-now-btn').addEventListener('click', () => {
+                triggerEvent('begin_checkout', { 
+                    currency: 'USD',
+                    value: 199.99, // Static value for demo
+                    items: [{ item_id: productId, price: 199.99, quantity: 1 }],
+                },
+                'The critical first step of the checkout funnel; measures transition from product view to commitment.',
+                'The most significant drop-off point in the purchase funnel is hidden, leading to inflated "Add to Cart" figures.'
+                );
+            });
+
+            // Shipping Cost Revealed
+            document.getElementById('shipping-info-btn').addEventListener('click', () => {
+                triggerEvent('shipping_cost_revealed', { item_id: productId, action: 'button_click' },
+                    'Measures when users check shipping costs, indicating price sensitivity or urgency.',
+                    'Cannot determine if shipping cost is a conversion blocker for the user.'
+                );
+            });
+            
+            // Warranty Info View
+            document.getElementById('warranty-info-btn').addEventListener('click', () => {
+                triggerEvent('warranty_info_view', { item_id: productId, confidence_indicator: true },
+                    'Measures user anxiety or need for product confidence signals (e.g., warranty, returns).',
+                    'Failure to track confidence-building interactions means we cannot optimize their visibility to reduce user anxiety.'
+                );
+            });
+
+            // Share Product
+            document.getElementById('share-product-btn').addEventListener('click', () => {
+                triggerEvent('share_product', { method: 'social_modal', content_type: 'product', item_id: productId },
+                    'Measures organic sharing, a key indicator of product virality and advocacy.',
+                    'Missed opportunity to track high-value brand advocates and calculate the true reach of organic promotion.'
+                );
+            });
+
+            // Copy Product Link
+            document.getElementById('copy-link-btn').addEventListener('click', () => {
+                triggerEvent('copy_product_link', { content_type: 'product', item_id: productId },
+                    'Measures high-intent sharing via internal messaging or email, often leading to later conversions.',
+                    'Cannot attribute conversions driven by users sharing links internally.'
+                );
+            });
+            
+            // E. Form-Based Events - Product Question Form
+            document.getElementById('product_question_form').addEventListener('submit', (e) => {
+                e.preventDefault();
+                // Simulation of form submission success
+                triggerEvent('product_question_form_submit', { form_id: 'product_Q_A', item_id: productId },
+                    'Measures user willingness to seek clarification before purchase, indicating friction.',
+                    'Key questions/concerns that block conversion remain unknown, leading to weak product descriptions.'
+                );
+            });
+             
+            // E. Form-Based Events - Product Question Form View
+            const questionForm = document.getElementById('product_question_form');
+            if (questionForm) {
+                // Triggered on page load (or when the form is rendered, simulating view)
+                triggerEvent('product_question_form_view', { form_id: 'product_Q_A', item_id: productId },
+                    'Measures visibility of the form, used to calculate its conversion rate.',
+                    'Form effectiveness cannot be measured, and drop-offs at the form level are invisible.'
+                );
+            }
+
+            // B. Product Variant Change Event
+            // Note: This is triggered on *any* relevant selection (size or color)
+            document.querySelectorAll('.product-size-selector, .product-color-selector').forEach(selector => {
+                selector.addEventListener('change', () => {
+                    const size = document.getElementById('size-selector').value;
+                    const color = document.getElementById('color-selector').value;
+                    
+                    triggerEvent('product_variant_change', { item_id: productId, size: size, color: color },
+                        'Tracks users changing options, indicating potential hesitation or comparison.',
+                        'The popularity and drop-off rate for specific product variants (size/color combinations) are unknown.'
+                    );
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
