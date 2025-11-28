@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrackFast - Smart Conversion Tracking Store</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                    <li>
+                        <select id="currency-selector" class="product-size-selector" aria-label="Currency Selector">
+                            <option value="USD" selected>USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="hero">
+            <div class="container">
+                <h1>Unlock Conversion Power with TrackFast</h1>
+                <p>See exactly how every user action is tracked, quantified, and leveraged for growth. Your data, visualized.</p>
+                <div class="search-box">
+                    <input type="text" id="site-search" placeholder="Search products or event names..." aria-label="Site Search">
+                    <button class="btn btn-primary" id="search-button">Search</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="featured-products" class="container">
+            <h2>🔥 Featured Tracking Gear</h2>
+            <div class="grid">
+                <div class="product-card" data-item-id="TF001">
+                    <img src="https://via.placeholder.com/300x200?text=Smart+Converter+Watch" alt="Smart Converter Watch">
+                    <h4>Smart Converter Watch</h4>
+                    <p class="price">$199.99</p>
+                    <a href="product.html" class="btn btn-primary product-recommendation-link">View Item</a>
+                    <button class="btn btn-secondary add-to-cart-btn" data-item-id="TF001">Add to Cart</button>
+                    <div class="bugged-element" style="margin-top: 10px; color: var(--color-risk);">Click here (Simulated Bug)</div>
+                </div>
+
+                <div class="product-card" data-item-id="TF002">
+                    <img src="https://via.placeholder.com/300x200?text=Attribution+Powerbank" alt="Attribution Powerbank">
+                    <h4>Attribution Powerbank</h4>
+                    <p class="price">$49.99</p>
+                    <a href="product.html?id=TF002" class="btn btn-primary">View Item</a>
+                    <button class="btn btn-secondary add-to-cart-btn" data-item-id="TF002">Add to Cart</button>
+                    <a class="dead-click-area" style="display: block; margin-top: 10px; color: var(--color-text-light);">Non-Interactive Link</a>
+                </div>
+
+                <div class="product-card" data-item-id="TF003">
+                    <img src="https://via.placeholder.com/300x200?text=ROAS+Earbuds" alt="ROAS Earbuds">
+                    <h4>ROAS Earbuds</h4>
+                    <p class="price">$129.50</p>
+                    <a href="product.html?id=TF003" class="btn btn-primary">View Item</a>
+                    <button class="btn btn-secondary add-to-cart-btn" data-item-id="TF003">Add to Cart</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="product-categories" class="container">
+            <h2>🛒 Shop By Category</h2>
+            <div class="grid">
+                <div class="product-card category-card" data-category="wearables">
+                    <img src="https://via.placeholder.com/300x200?text=Wearables" alt="Wearables Category">
+                    <h4>Wearables</h4>
+                    <p>Track steps and conversions.</p>
+                </div>
+                <div class="product-card category-card" data-category="accessories">
+                    <img src="https://via.placeholder.com/300x200?text=Accessories" alt="Accessories Category">
+                    <h4>Accessories</h4>
+                    <p>Enhance your tracking setup.</p>
+                </div>
+                <div class="product-card category-card" data-category="software">
+                    <img src="https://via.placeholder.com/300x200?text=Software" alt="Software Category">
+                    <h4>Software</h4>
+                    <p>API connections and Data Viz.</p>
+                </div>
+            </div>
+        </section>
+        
+        <section id="forms-section" class="container" style="background-color: var(--color-white); padding-bottom: 30px;">
+            <div class="grid">
+                <div style="border-right: 1px solid #eee; padding-right: 20px;">
+                    <h3>💌 Newsletter Signup</h3>
+                    <p>Subscribe to learn the latest tracking insights.</p>
+                    <form class="demo-form" id="newsletter">
+                        <input type="email" id="newsletter-email" placeholder="Your Email (e.g., test@trackfast.com)" required>
+                        <button type="submit" class="btn btn-primary newsletter-submit-btn">Subscribe</button>
+                    </form>
+                </div>
+
+                <div>
+                    <h3>💡 Ask for Tracking Advice</h3>
+                    <p>Get a consultation on fixing your data layer.</p>
+                    <form class="demo-form" id="tracking_advice_form">
+                        <input type="text" placeholder="Your Name" required>
+                        <textarea placeholder="Describe your tracking problem..." required></textarea>
+                        <button type="submit" class="btn btn-primary">Get Advice</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact-location" class="container">
+            <h2>📍 Find Our Dummy Location</h2>
+            <p>We are fully online, but here is a simulated location view.</p>
+            <div style="height: 300px; background-color: #e9ecef; border-radius: var(--border-radius-base); overflow: hidden;">
+                <div id="store-locator-view" style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; color: var(--color-text-light);">
+                    [Simulated Store Locator Map Area]
+                </div>
+            </div>
+            <p style="text-align: center; margin-top: 15px;">
+                <button class="btn btn-secondary" id="store-locator-click">Click for Directions (Simulated)</button>
+            </p>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div>
+                <h4>Navigation</h4>
+                <ul>
+                    <li><a href="product.html" class="footer-link">All Products</a></li>
+                    <li><a href="documentation.html" class="footer-link">Tracking Guide</a></li>
+                    <li><a href="#" class="footer-link">Shipping & Returns</a></li>
+                    <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4>Contact Us</h4>
+                <p>Email: support@trackfast.com</p>
+                <p>Phone: (555) TRACK-FST</p>
+                <p>Address: 123 Data Layer St, Conversion City</p>
+            </div>
+            <div>
+                <h4>Connect</h4>
+                <a href="#" class="social-icon" data-platform="facebook" style="margin-right: 10px;">[FB]</a>
+                <a href="#" class="social-icon" data-platform="twitter" style="margin-right: 10px;">[TW]</a>
+                <a href="#" class="social-icon" data-platform="linkedin">[LI]</a>
+            </div>
+        </div>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Smart Conversion Tracking Demo.
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Additional DOM-specific event listeners for the homepage
+        document.addEventListener('DOMContentLoaded', () => {
+            // A. Search Event
+            document.getElementById('search-button').addEventListener('click', () => {
+                const query = document.getElementById('site-search').value.trim();
+                if (query.length > 0) {
+                    triggerEvent('search', { search_term: query },
+                        'Measures user intent and identifies content gaps.',
+                        'Search term data is lost, making it impossible to improve navigation or product listings based on user need.'
+                    );
+                    triggerEvent('view_search_results', { search_term: query, results_count: 3 },
+                        'Measures how often a search yields results.',
+                        'Cannot tell if users are finding what they need, leading to frustrating zero-result pages.'
+                    );
+                } else {
+                    triggerEvent('site_search_no_results', { search_term: '', results_count: 0 },
+                        'Measures searches that return no results (empty query here, or specific query with no results).',
+                        'Users leaving the site due to missing content or bugs are not captured.'
+                    );
+                }
+            });
+
+            // A. Category View Event
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    const category = e.currentTarget.dataset.category;
+                    triggerEvent('category_view', { item_list_name: category },
+                        'Measures engagement with product categories.',
+                        'The popularity and conversion rate of different product categories remain unknown.'
+                    );
+                });
+            });
+
+            // H. Store Locator Event
+            document.getElementById('store-locator-view').addEventListener('mouseenter', () => {
+                 triggerEvent('store_locator_view', { location_area: 'footer_map' },
+                    'Measures local intent from users looking for physical locations.',
+                    'Missed opportunity to track high-intent, local users who may visit in-person.'
+                );
+            });
+            document.getElementById('store-locator-click').addEventListener('click', () => {
+                 triggerEvent('store_locator_click', { location_action: 'get_directions' },
+                    'Tracks the final step before a physical store visit (a critical business KPI).',
+                    'Cannot attribute online marketing spend to offline store visits and sales.'
+                );
+            });
+            
+            // B. Product Hover/Quick View Simulation
+            document.querySelectorAll('.product-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    const item = card.dataset.itemId;
+                    // Note: Quick view is simulated as a deep hover action
+                    triggerEvent('product_hover', { item_id: item, time_on_hover_ms: 500 },
+                        'Measures high-intent user focus before a click.',
+                        'Missed signal of strong product interest, limiting retargeting options.'
+                    );
+                });
+            });
+
+        });
+    </script>
+
+</body>
+</html>
