@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | TrackFast Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="checkout-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li style="color: var(--color-primary);">Checkout</li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <p style="font-size: 0.9em; color: var(--color-text-light);">Checking out as Guest</p>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="checkout-section" class="container">
+            <h1 class="page-title">Secure Checkout (4 Steps)</h1>
+            
+            <div class="checkout-layout cart-layout">
+                
+                <div class="checkout-form">
+                    
+                    <div class="form-group" id="billing-step">
+                        <h2>1. Billing Information</h2>
+                        <form id="billing-form">
+                            <div class="grid">
+                                <input type="text" placeholder="First Name" required>
+                                <input type="text" placeholder="Last Name" required>
+                            </div>
+                            <input type="email" placeholder="Email Address" required>
+                            <input type="text" placeholder="Billing Address Line 1" required>
+                            <div class="grid">
+                                <input type="text" placeholder="City" required>
+                                <input type="text" placeholder="Postal Code" required>
+                            </div>
+                            <button type="button" class="btn btn-primary next-step-btn" id="add-billing-btn">Continue to Shipping</button>
+                        </form>
+                    </div>
+                    
+                    <div class="form-group" id="shipping-step" style="display: none;">
+                        <h2>2. Shipping Information</h2>
+                         <form id="shipping-form">
+                            <input type="text" placeholder="Shipping Address Line 1" required>
+                            <div class="grid">
+                                <input type="text" placeholder="City" required>
+                                <input type="text" placeholder="Country/Region" required>
+                            </div>
+                            <button type="button" class="btn btn-secondary back-step-btn" data-target="billing-step">Back to Billing</button>
+                            <button type="button" class="btn btn-primary next-step-btn" id="add-shipping-btn">Continue to Delivery</button>
+                        </form>
+                    </div>
+
+                    <div class="form-group" id="delivery-step" style="display: none;">
+                        <h2>3. Delivery Options</h2>
+                        <div style="padding: 15px; border: 1px solid #ddd; border-radius: 5px;">
+                            <label><input type="radio" name="delivery" class="delivery-option-radio" value="standard" data-cost="5.00" checked> Standard Shipping (5-7 days, $5.00)</label><br>
+                            <label><input type="radio" name="delivery" class="delivery-option-radio" value="express" data-cost="15.00"> Express Shipping (1-2 days, $15.00)</label>
+                        </div>
+                        <br>
+                        <button type="button" class="btn btn-secondary back-step-btn" data-target="shipping-step">Back to Shipping</button>
+                        <button type="button" class="btn btn-primary next-step-btn" id="select-delivery-btn">Continue to Payment</button>
+                    </div>
+
+                    <div class="form-group" id="payment-step" style="display: none;">
+                        <h2>4. Payment Information</h2>
+                        <form id="payment-form">
+                            <input type="text" placeholder="Card Number" required>
+                            <div class="grid">
+                                <input type="text" placeholder="MM/YY" required>
+                                <input type="text" placeholder="CVV" required>
+                            </div>
+                            <button type="button" class="btn btn-secondary back-step-btn" data-target="delivery-step">Back to Delivery</button>
+                            <button type="button" class="btn btn-success" id="place-order-btn" style="width: auto;">Place Order & Pay $269.98</button>
+                        </form>
+                    </div>
+
+                </div>
+
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    <div class="summary-row"><span>Items:</span><span>2</span></div>
+                    <div class="summary-row"><span>Subtotal:</span><span>$249.98</span></div>
+                    <div class="summary-row"><span>Shipping:</span><span id="summary-shipping">$5.00 (Standard)</span></div>
+                    <div class="summary-row"><span>Tax (5%):</span><span>$12.50</span></div>
+                    <div class="summary-row" id="summary-coupon-row" style="display: none;"><span>Coupon (SAVE10):</span><span style="color: var(--color-success);">-$10.00</span></div>
+
+                    <div class="summary-total">
+                        <span>Total (Incl. Tax & Ship):</span>
+                        <span id="summary-total">$267.48</span>
+                    </div>
+
+                    <h4 style="margin-top: 20px;">Coupon Code</h4>
+                    <form id="coupon-form-checkout" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <input type="text" id="coupon-input" placeholder="SAVE10 (Try entering 'SAVE10')" style="margin-bottom: 0;">
+                        <button type="button" class="btn btn-primary" id="apply-coupon-btn-checkout" style="width: 100px;">Apply</button>
+                    </form>
+                    
+                    <button class="btn btn-secondary" id="payment-failure-sim-btn" style="width: 100%; margin-top: 15px; background-color: var(--color-risk); color: var(--color-white);">Simulate Payment Failure</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container copyright">
+            &copy; 2025 TrackFast. Ensure all checkout events are tracked!
+        </div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // DOM-specific event listeners for the Checkout page
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentItems = [
+                { item_id: 'TF001', item_name: 'Smart Converter Watch', price: 199.99, quantity: 1 },
+                { item_id: 'TF002', item_name: 'Attribution Powerbank', price: 49.99, quantity: 1 }
+            ];
+            const baseValue = 249.98;
+
+            // Function to update the summary dynamically (for demonstration)
+            function updateSummary(shippingCost, couponApplied = false) {
+                let total = baseValue + 12.50; // Base + Tax
+                
+                document.getElementById('summary-shipping').textContent = `$${shippingCost.toFixed(2)}`;
+                total += shippingCost;
+                
+                if (couponApplied) {
+                    total -= 10.00; // Simulating $10 discount
+                    document.getElementById('summary-coupon-row').style.display = 'flex';
+                } else {
+                    document.getElementById('summary-coupon-row').style.display = 'none';
+                }
+
+                document.getElementById('summary-total').textContent = `$${total.toFixed(2)}`;
+                document.getElementById('place-order-btn').textContent = `Place Order & Pay $${total.toFixed(2)}`;
+            }
+
+            // Initial summary setup
+            updateSummary(5.00); // Default standard shipping
+
+            // C. Checkout Step Navigation and Tracking
+
+            // Step 1: Billing Info
+            document.getElementById('add-billing-btn').addEventListener('click', () => {
+                // Simplified validation check
+                if (document.querySelector('#billing-form').checkValidity()) {
+                    triggerEvent('add_billing_info', { payment_provider: 'stripe_sim', billing_country: 'US' },
+                        'Measures successful capture of user billing details, segmenting funnel progress.',
+                        'Drop-offs at this stage are hidden, masking potential issues with form field validation or layout.'
+                    );
+                    document.getElementById('billing-step').style.display = 'none';
+                    document.getElementById('shipping-step').style.display = 'block';
+                } else {
+                    alert('Please fill out all required billing fields.');
+                }
+            });
+
+            // Step 2: Shipping Info
+            document.getElementById('add-shipping-btn').addEventListener('click', () => {
+                // Simplified validation check
+                if (document.querySelector('#shipping-form').checkValidity()) {
+                    triggerEvent('add_shipping_info', { shipping_country: 'US', is_same_as_billing: false },
+                        'Measures successful capture of user shipping details, segmenting funnel progress.',
+                        'Drop-offs at this stage are hidden, masking issues with shipping location or restrictions.'
+                    );
+                    document.getElementById('shipping-step').style.display = 'none';
+                    document.getElementById('delivery-step').style.display = 'block';
+                } else {
+                    alert('Please fill out all required shipping fields.');
+                }
+            });
+
+            // Step 3: Delivery Selection
+            document.querySelectorAll('.delivery-option-radio').forEach(radio => {
+                radio.addEventListener('change', (e) => {
+                    const cost = parseFloat(e.target.dataset.cost);
+                    const method = e.target.value;
+                    updateSummary(cost, document.getElementById('summary-coupon-row').style.display === 'flex');
+
+                    triggerEvent('select_delivery_option', { shipping_method: method, shipping_cost: cost },
+                        'Crucial for understanding price sensitivity vs. speed preference, informing logistics strategy.',
+                        'Cannot determine if shipping costs or speed cause drop-offs, leading to sub-optimal carrier deals.'
+                    );
+                });
+            });
+
+            document.getElementById('select-delivery-btn').addEventListener('click', () => {
+                 triggerEvent('select_delivery_option_complete', { action: 'next_step' },
+                    'Confirms user acceptance of the chosen shipping method before final payment.',
+                    'Missed opportunity to track users who agree to shipping terms but abandon before payment.'
+                );
+                document.getElementById('delivery-step').style.display = 'none';
+                document.getElementById('payment-step').style.display = 'block';
+            });
+
+            // Step 4: Payment Info
+            document.getElementById('place-order-btn').addEventListener('click', (e) => {
+                // Simplified payment validation
+                if (document.querySelector('#payment-form').checkValidity()) {
+                    triggerEvent('add_payment_info', { payment_type: 'credit_card', payment_gateway: 'stripe_sim' },
+                        'Measures the final pre-purchase commitment, essential for payment gateway performance analysis.',
+                        'Payment option preference is unknown; if a specific gateway fails, the drop-off is not attributed correctly.'
+                    );
+                    
+                    // Simulate successful purchase and redirect (purchase event triggers on success.html)
+                    window.location.href = 'success.html'; 
+                } else {
+                    alert('Please enter simulated payment details.');
+                }
+            });
+
+            // Back Step Functionality
+            document.querySelectorAll('.back-step-btn').forEach(btn => {
+                btn.addEventListener('click', (e) => {
+                    const targetStep = e.target.dataset.target;
+                    e.currentTarget.closest('.form-group').style.display = 'none';
+                    document.getElementById(targetStep).style.display = 'block';
+                });
+            });
+
+
+            // C. Coupon Application/Removal Events
+            document.getElementById('apply-coupon-btn-checkout').addEventListener('click', () => {
+                const couponCode = document.getElementById('coupon-input').value.trim();
+                const shippingCost = parseFloat(document.querySelector('.delivery-option-radio:checked').dataset.cost);
+                
+                if (couponCode.toUpperCase() === 'SAVE10') {
+                    // Success Case
+                    updateSummary(shippingCost, true);
+                    triggerEvent('apply_coupon', { coupon: 'SAVE10', discount_value: 10.00 },
+                        'Measures the direct impact of promotional codes on conversion rate and AOV.',
+                        'Cannot calculate the profitability or success rate of discount campaigns.'
+                    );
+                } else if (couponCode.toUpperCase() === 'REMOVE') {
+                    // Remove Case (Simulated removal by applying a "remove" code)
+                    updateSummary(shippingCost, false);
+                     triggerEvent('remove_coupon', { coupon: 'SAVE10', reason: 'price_sensitivity' },
+                        'Tracks users who decide a coupon is not beneficial or valid.',
+                        'Cannot analyze friction points in the coupon application process.'
+                    );
+                } else {
+                    // Error Case
+                    updateSummary(shippingCost, false);
+                    triggerEvent('coupon_error', { coupon_code: couponCode, error_message: 'Invalid or Expired' },
+                        'Tracks user frustration with invalid codes, a common checkout abandonment trigger.',
+                        'Form errors cause silent abandonment; business misses the opportunity to correct the user.'
+                    );
+                }
+            });
+            
+            // C. Payment Failure Simulation
+            document.getElementById('payment-failure-sim-btn').addEventListener('click', () => {
+                triggerEvent('payment_failure', { error_code: 'DECLINED_CVV', step: 'processing' },
+                    'Critical for identifying payment gateway failures, bank declines, or fraudulent blocks.',
+                    'False advertising spend due to inflated cart/checkout figures; the true conversion rate is lower than reported.'
+                );
+                alert("Payment Failed! The event has been logged.");
+            });
+            
+            // H. Checkout Abandonment Trigger (Simulated after 2 minutes)
+            setTimeout(() => {
+                if (document.getElementById('payment-step').style.display !== 'none' && 
+                    !document.getElementById('place-order-btn').dataset.clicked) {
+                    
+                    triggerEvent('checkout_abandonment_trigger', { value: document.getElementById('summary-total').textContent, step: 'payment' },
+                        'Triggers an automation (e.g., SMS, email) to attempt to recover the high-value cart.',
+                        'Loss of high-intent revenue; recovery campaigns cannot be launched efficiently.'
+                    );
+                }
+            }, 120000); // 2 minutes
+
+        });
+    </script>
+
+</body>
+</html>
