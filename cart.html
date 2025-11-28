@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | TrackFast Demo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body id="cart-page">
+
+    <header>
+        <div class="container navbar">
+            <div class="logo">TrackFast</div>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="index.html" class="menu-link">Home</a></li>
+                    <li><a href="product.html" class="menu-link">Products</a></li>
+                    <li><a href="cart.html" class="menu-link">Cart</a></li>
+                    <li><a href="documentation.html" class="menu-link">Tracking Guide 📘</a></li>
+                    <li>
+                        <select id="currency-selector" class="product-size-selector" aria-label="Currency Selector">
+                            <option value="USD" selected>USD</option>
+                            <option value="EUR">EUR</option>
+                            <option value="GBP">GBP</option>
+                        </select>
+                    </li>
+                </ul>
+            </nav>
+            <div class="account-actions">
+                <a href="login.html" class="btn btn-secondary">Login</a>
+                <a href="signup.html" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="cart-section" class="container">
+            <h1 class="page-title">Your Cart Items</h1>
+            
+            <div class="cart-layout">
+                <div class="cart-items-list">
+                    
+                    <div class="cart-item" data-item-id="TF001" data-price="199.99">
+                        <img src="https://via.placeholder.com/80x80?text=TF001" alt="Smart Converter Watch">
+                        <div class="item-details">
+                            <h4>Smart Converter Watch</h4>
+                            <p>Color: Black, Size: M</p>
+                            <p>Quantity: <input type="number" value="1" min="1" max="5" style="width: 60px; padding: 5px;" class="item-quantity"></p>
+                        </div>
+                        <div class="item-price" style="width: 100px; text-align: right;">$199.99</div>
+                        <button class="btn btn-secondary remove-from-cart-btn" data-item-id="TF001" style="margin-left: 20px; padding: 5px 10px;">Remove</button>
+                    </div>
+
+                    <div class="cart-item" data-item-id="TF002" data-price="49.99">
+                        <img src="https://via.placeholder.com/80x80?text=TF002" alt="Attribution Powerbank">
+                        <div class="item-details">
+                            <h4>Attribution Powerbank</h4>
+                            <p>Color: Black, Size: One Size</p>
+                            <p>Quantity: <input type="number" value="1" min="1" max="5" style="width: 60px; padding: 5px;" class="item-quantity"></p>
+                        </div>
+                        <div class="item-price" style="width: 100px; text-align: right;">$49.99</div>
+                        <button class="btn btn-secondary remove-from-cart-btn" data-item-id="TF002" style="margin-left: 20px; padding: 5px 10px;">Remove</button>
+                    </div>
+                    
+                    <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee;">
+                        <h4>You might also like:</h4>
+                        <a href="product.html?id=TF003" class="product-recommendation-click" style="display: block; color: var(--color-primary);">ROAS Earbuds - $129.50</a>
+                    </div>
+
+                </div>
+
+                <div class="cart-summary">
+                    <h3>Order Summary</h3>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="cart-subtotal">$249.98</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping:</span>
+                        <span id="cart-shipping">TBD</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax:</span>
+                        <span id="cart-tax">Calculated at Checkout</span>
+                    </div>
+
+                    <div class="summary-total">
+                        <span>Estimated Total:</span>
+                        <span id="cart-total">$249.98</span>
+                    </div>
+                    
+                    <h4 style="margin-top: 20px;">Coupon</h4>
+                    <form id="coupon-form" style="display: flex; gap: 10px; margin-bottom: 20px;">
+                        <input type="text" id="coupon-input" placeholder="Enter coupon code" style="margin-bottom: 0;">
+                        <button type="submit" class="btn btn-primary" id="apply-coupon-btn" style="width: 100px;">Apply</button>
+                    </form>
+
+                    <a href="checkout.html" class="btn btn-primary checkout-button" id="begin-checkout-btn" style="width: 100%; margin-top: 15px;">Proceed to Checkout</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container footer-content">
+            <div><h4>Navigation</h4><ul><li><a href="product.html" class="footer-link">All Products</a></li><li><a href="documentation.html" class="footer-link">Tracking Guide</a></li></ul></div>
+            <div><h4>Contact Us</h4><p>support@trackfast.com</p></div>
+            <div><h4>Connect</h4><a href="#" class="social-icon" data-platform="facebook" style="margin-right: 10px;">[FB]</a></div>
+        </div>
+        <div class="container copyright">&copy; 2025 TrackFast. Smart Conversion Tracking Demo.</div>
+    </footer>
+
+    <div id="event-popup-container">
+        </div>
+
+    <script src="script.js"></script>
+    <script>
+        // Additional DOM-specific event listeners for the Cart page
+        document.addEventListener('DOMContentLoaded', () => {
+            const currentItems = [
+                { item_id: 'TF001', item_name: 'Smart Converter Watch', price: 199.99, quantity: 1 },
+                { item_id: 'TF002', item_name: 'Attribution Powerbank', price: 49.99, quantity: 1 }
+            ];
+            const cartTotal = 249.98;
+
+            // B. Product Interaction Events: Remove from Cart
+            document.querySelectorAll('.remove-from-cart-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    const itemId = e.currentTarget.dataset.itemId;
+                    const itemElement = e.currentTarget.closest('.cart-item');
+                    
+                    // Simulate cart state update
+                    itemElement.remove();
+                    // Note: In a real app, cartState would be updated dynamically
+                    
+                    triggerEvent('remove_from_cart', { 
+                        currency: 'USD',
+                        value: itemElement.dataset.price || 0,
+                        items: [{ item_id: itemId, quantity: 1 }],
+                    },
+                    'Identifies which products users change their minds about or drop, crucial for product quality assessment.',
+                    'Product-level analysis of cart abandonment is impossible, leading to poor inventory/merchandising decisions.'
+                    );
+                });
+            });
+
+            // B. Product Interaction Events: Product Recommendation Click
+            document.querySelectorAll('.product-recommendation-click').forEach(link => {
+                link.addEventListener('click', () => {
+                    triggerEvent('product_recommendation_click', { recommendation_type: 'cart_page', item_id: 'TF003' },
+                        'Measures effectiveness of upselling/cross-selling efforts on Average Order Value (AOV).',
+                        'Cannot assess the revenue impact of the recommendation engine on cart value.'
+                    );
+                });
+            });
+
+            // C. Checkout & Purchase Events: Begin Checkout
+            document.getElementById('begin-checkout-btn').addEventListener('click', (e) => {
+                e.preventDefault();
+                
+                // Add a temporary flag to prevent the abandonment trigger from firing after a successful click
+                e.currentTarget.dataset.clicked = true; 
+                
+                triggerEvent('begin_checkout', { 
+                    currency: 'USD',
+                    value: cartTotal,
+                    items: currentItems,
+                },
+                'The critical first step of the checkout funnel; measures commitment and creates a high-value audience.',
+                'The most significant drop-off point in the purchase funnel is hidden, leading to weak funnel optimization.'
+                );
+
+                // Simulate redirect after event fire
+                setTimeout(() => {
+                    window.location.href = 'checkout.html'; 
+                }, 100);
+            });
+            
+            // D. Checkout & Purchase Events: Coupon Form Submission (simulated for simplicity, although often on checkout)
+            document.getElementById('coupon-form').addEventListener('submit', (e) => {
+                 e.preventDefault();
+                 const couponCode = document.getElementById('coupon-input').value.trim();
+                 
+                 // Simulating error case for demo simplicity
+                 if (couponCode.length > 0 && couponCode.toUpperCase() !== 'VALID') {
+                     triggerEvent('coupon_error', { coupon_code: couponCode, error_message: 'Invalid Coupon' },
+                        'Tracks failed coupon attempts, which can signal user frustration or confusion.',
+                        'Frustration from invalid coupons leads to checkout abandonment.'
+                    );
+                 } else if (couponCode.toUpperCase() === 'VALID') {
+                     triggerEvent('apply_coupon', { coupon: 'VALID', discount_value: 15.00 },
+                        'Measures the effectiveness of discount campaigns.',
+                        'Cannot calculate the true profitability of a coupon campaign.'
+                    );
+                 }
+            });
+
+        });
+    </script>
+
+</body>
+</html>
